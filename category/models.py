@@ -7,7 +7,7 @@ class Category(models.Model):
     id = models.AutoField(primary_key=True)
 
     # 字符串类型，max_length表示最大长度255，verbose_name表示备注的字段中文名
-    category_name = models.CharField(max_length=100, verbose_name='分类名称')
+    name = models.CharField(max_length=100, verbose_name='分类名称')
     # 时间类型 auto_now_add为添加时的时间，更新对象时不会有变动。
     created = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
     # 时间类型 auto_now无论是你添加还是修改对象，时间为你添加或者修改的时间。

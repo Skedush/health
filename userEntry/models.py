@@ -78,6 +78,9 @@ class UserEntry(models.Model):
     # boll类型
     is_delete = models.BooleanField(default=False, verbose_name='是否删除')
 
+    entryship = models.ManyToManyField(
+        'dicEntry.Entry', through='UserEntryOfEntry')
+
     class Meta:
         db_table = 'h_user_entry'
         verbose_name = '用户选择条目信息表'

@@ -24,7 +24,7 @@ class Entry(models.Model):
     is_delete = models.BooleanField(default=False, verbose_name='是否删除')
 
     entry = models.ManyToManyField(
-        to='self', symmetrical=False, related_name='ship')
+        'self', through='Relationship', symmetrical=False, related_name='related_to')
 
     class Meta:
         db_table = 'h_entry'
@@ -32,20 +32,20 @@ class Entry(models.Model):
         verbose_name_plural = verbose_name
 
 
-# class EntryShip(models.Model):
+class Relationship(models.Model):
 
-#     id = models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True)
 
-#     category = models.ForeignKey(
-#         'category.Category', null=True, on_delete=models.SET_NULL, verbose_name='分类id外键')
+    from_entry = models.ForeignKey(Entry, null=True,
+                                   on_delete=models.SET_NULL, verbose_name='条目id外键', related_name='from_entry')
 
-#     entry = models.ForeignKey(Entry, null=True,
-#                               on_delete=models.SET_NULL, verbose_name='条目id外键')
+    to_entry = models.ForeignKey(Entry, null=True,
+                                 on_delete=models.SET_NULL, verbose_name='条目关联id外键', related_name='to_entry')
 
-#     entry_ship = models.ForeignKey(Entry, null=True,
-#                                    on_delete=models.SET_NULL, verbose_name='条目关联id外键')
+    category_id = models.IntegerField(
+        null=True, blank=True, verbose_name='条目关联分类id外键')
 
-#     class Meta:
-#         db_table = 'h_entry_ship'
-#         verbose_name = '条目信息自关联表'
-#         verbose_name_plural = verbose_name
+    class Meta:
+        db_table = 'h_entry_ship'
+        verbose_name = '条目信息自关联表'
+        verbose_name_plural = verbose_name
