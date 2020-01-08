@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
+import datetime
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -25,6 +26,8 @@ SECRET_KEY = 'kz^6p_(@0(le-40zfh^7!99!l7w3qf%-hkez@)w5hr+pivoj!_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+AUTH_USER_MODEL = 'user.User'
+
 ALLOWED_HOSTS = []
 
 
@@ -38,7 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',  # 使用DRF
+    'rest_framework.authtoken',  # 设置token
     'rest_framework_swagger',  # 使用swagger
+    'corsheaders',
     'user',
     'title',
     'category',
@@ -47,6 +52,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -55,6 +61,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOW_CREDENTIALS = True  # 允许携带cookie
 
 ROOT_URLCONF = 'Health.urls'
 
@@ -130,9 +140,30 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-REST_FRAMEWORK = {"DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.AutoSchema",
-                  }
 
+REST_FRAMEWORK = {"DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.AutoSchema",
+                  'DEFAULT_AUTHENTICATION_CLASSES': (
+                      #   'rest_framework.authentication.BasicAuthentication',
+                      #   'rest_framework.authentication.SessionAuthentication',
+                      # 'rest_framework.authentication.TokenAuthentication',
+                      # 将token做验证
+                      'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+                  ),
+                  # 设置所有接口都需要被验证
+                  'DEFAULT_PERMISSION_CLASSES': (
+                      # ’rest_framework.permissions.IsAuthenticatedOrReadOnly’,
+                  ),
+                  }
+# 设置过期时间
+JWT_AUTH = {
+    # token 有效期
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=8),
+    'JWT_ALLOW_REFRESH': True,
+    # 续期有效期（该设置可在24小时内带未失效的token 进行续期）
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(hours=24),
+    # 自定义返回格式，需要手工创建
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'user.utils.jwt_response_payload_handler',
+}
 # 下面是新增的配置
 STATICFILES_DIRS = [
     # 指定文件目录，BASE_DIR指的是项目目录，static是指存放静态文件的目录。

@@ -15,7 +15,6 @@ Including another URLconf
 """
 from rest_framework_swagger.views import get_swagger_view
 from user.views import UserViewset
-from django.contrib import admin
 from django.urls import path, include
 
 # 配置swagger
@@ -23,7 +22,6 @@ schema_view = get_swagger_view(title='Demo API')
 
 urlpatterns = [
     path('user/', include('user.urls')),  # 使用Django REST framework路由系统
-
     # swagger配置
     path(r'swagger/', schema_view, name="swagger"),
     path(r'api-auth/', include('rest_framework.urls', namespace='rest_framework')),
