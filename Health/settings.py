@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',  # 使用DRF
     'rest_framework.authtoken',  # 设置token
     'rest_framework_swagger',  # 使用swagger
+    'drf_yasg',
     'corsheaders',
     'user',
     'title',
@@ -145,13 +146,14 @@ REST_FRAMEWORK = {"DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.AutoSchema",
                   'DEFAULT_AUTHENTICATION_CLASSES': (
                       #   'rest_framework.authentication.BasicAuthentication',
                       #   'rest_framework.authentication.SessionAuthentication',
-                      # 'rest_framework.authentication.TokenAuthentication',
+                      #   'rest_framework.authentication.TokenAuthentication',
                       # 将token做验证
                       'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
                   ),
                   # 设置所有接口都需要被验证
                   'DEFAULT_PERMISSION_CLASSES': (
                       # ’rest_framework.permissions.IsAuthenticatedOrReadOnly’,
+                      #   'rest_framework.permissions.IsAdminUser'
                   ),
                   }
 # 设置过期时间
@@ -174,20 +176,20 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static/static')
 
 
 SWAGGER_SETTINGS = {
-    'LOGIN_URL': 'rest_framework:login',
-    'LOGOUT_URL': 'rest_framework:logout',
+    # 'LOGIN_URL': 'rest_framework:login',
+    # 'LOGOUT_URL': 'rest_framework:logout',
     # 'DEFAULT_INFO': 'beatop.urls.swagger_info',
-    'USE_SESSION_AUTH': True,
+    'USE_SESSION_AUTH': False,
     # 'SHOW_EXTENSIONS': False,
     'DOC_EXPANSION': 'none',  # none/list/full
     'SECURITY_DEFINITIONS': {
-        'Basic': {
-            'type': 'basic'
-        },
-        'Bearer': {
+        # 'basic': {
+        #     'type': 'basic'
+        # },
+        'api_key': {
             'type': 'apiKey',
-            'name': 'Authorization',
-            'in': 'header'
+            'in': 'header',
+            'name': 'Authorization'
         }
     }
 }

@@ -13,16 +13,38 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from rest_framework_swagger.views import get_swagger_view
+# from rest_framework_swagger.views import get_swagger_view
+from rest_framework_swagger import renderers
 from user.views import UserViewset
 from django.urls import path, include
+from rest_framework import permissions
+from drf_yasg.views import get_schema_view
+from rest_framework.schemas import get_schema_view as get_schema_view_swagger
+from drf_yasg import openapi
+schema_view = get_schema_view(
+    openapi.Info(
+        title="CMDB API",
+        default_version='v1',
+        description="资产管理系统API接口文档",
+        terms_of_service="https://www.shuaibo.wang/",
+        contact=openapi.Contact(email="mail@shuaibo.wang"),
+        license=openapi.License(name="BSD License"),
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
+)
 
 # 配置swagger
-schema_view = get_swagger_view(title='Demo API')
+# schema_view_swagger = get_swagger_view(title='Demo API')
+schema_view_swagger = get_schema_view_swagger(title='API', public=False, renderer_classes=[
+    renderers.OpenAPIRenderer, renderers.SwaggerUIRenderer])
 
 urlpatterns = [
     path('user/', include('user.urls')),  # 使用Django REST framework路由系统
+
+    path(r'api_doc/', schema_view.with_ui('redoc',
+                                          cache_timeout=0), name="CMDB API"),
     # swagger配置
-    path(r'swagger/', schema_view, name="swagger"),
+    path(r'swagger/', schema_view_swagger, name="swagger"),
     path(r'api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]

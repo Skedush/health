@@ -24,9 +24,8 @@ class UserViewset(ModelViewSet):
     # authentication是用户认证
     authentication_classes = (JSONWebTokenAuthentication,)
     # permission是权限验证 IsAuthenticated必须登录用户 IsOwnerOrReadOnly必须是当前登录的用户
-    # permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
     # 判断是否登陆
-    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
+    permission_classes = [IsAuthenticated]
     queryset = User.objects.all()
     serializer_class = UserSerializer
     # drf 过滤&搜索&排序
