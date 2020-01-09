@@ -9,7 +9,6 @@ class User(AbstractUser):
         ('0', '女'),
         ('1', '男'),
     )
-    id = models.AutoField(primary_key=True)
 
     phone = models.CharField(max_length=11, null=True,
                              blank=True, verbose_name='用户手机号')

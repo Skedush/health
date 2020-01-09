@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 # 用户表对象 即 用户表模型
 
@@ -7,7 +8,8 @@ class EntryInfo(models.Model):
 
     id = models.AutoField(primary_key=True)
 
-    user = models.ForeignKey('user.User', null=True, on_delete=models.SET_NULL)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             null=True, on_delete=models.SET_NULL)
 
     category = models.ForeignKey(
         'category.Category', null=True, on_delete=models.SET_NULL)
