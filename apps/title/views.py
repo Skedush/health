@@ -1,18 +1,18 @@
 from django.views import View
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import User
+from .models import Title
 
 from rest_framework.filters import SearchFilter, OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.viewsets import ModelViewSet
-from .serializers import UserSerializer
+from .serializers import TitleSerializer
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
-from .permissions import IsOwnerOrReadOnly
+from utils.permissions import IsOwnerOrReadOnly
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 
-class UserViewset(ModelViewSet):
+class TitleViewset(ModelViewSet):
     '''
     修改局部数据
     create:  创建用户
@@ -26,13 +26,13 @@ class UserViewset(ModelViewSet):
     # permission是权限验证 IsAuthenticated必须登录用户 IsOwnerOrReadOnly必须是当前登录的用户
     # 判断是否登陆
     permission_classes = [IsAuthenticated]
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    queryset = Title.objects.all()
+    serializer_class = TitleSerializer
     # drf 过滤&搜索&排序
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter,)
     # 搜索
-    search_fields = ('username', 'phone', 'email',)
+    search_fields = ('title_name', 'user',)
     # 过滤
-    filter_fields = ('gender',)
+    filter_fields = ('is_delete',)
     # 排序
     ordering_fields = ('updated', 'created',)
