@@ -5,14 +5,14 @@ from .models import User
 
 from rest_framework.filters import SearchFilter, OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.viewsets import ModelViewSet
+from utils.customViewBase import CustomViewBase
 from .serializers import UserSerializer
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from utils.permissions import IsOwnerOrReadOnly
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 
-class UserViewset(ModelViewSet):
+class UserViewset(CustomViewBase):
     '''
     修改局部数据
     create:  创建用户
@@ -25,7 +25,7 @@ class UserViewset(ModelViewSet):
     authentication_classes = (JSONWebTokenAuthentication,)
     # permission是权限验证 IsAuthenticated必须登录用户 IsOwnerOrReadOnly必须是当前登录的用户
     # 判断是否登陆
-    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
+    permission_classes = [IsAuthenticated]
     queryset = User.objects.all()
     serializer_class = UserSerializer
     # drf 过滤&搜索&排序

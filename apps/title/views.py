@@ -5,24 +5,27 @@ from .models import Title
 
 from rest_framework.filters import SearchFilter, OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.viewsets import ModelViewSet
+from utils.customViewBase import CustomViewBase
 from .serializers import TitleSerializer
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from utils.permissions import IsOwnerOrReadOnly
-from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+# from rest_framework_jwt.authentication import JSONWebTokenAuthentication, BaseJSONWebTokenAuthentication
+from utils.JWTAuthentication import JWTAuthentication
 
 
-class TitleViewset(ModelViewSet):
+class TitleViewset(CustomViewBase):
     '''
     修改局部数据
-    create:  创建用户
-    retrieve:  检索某个用户
-    update:  更新用户
-    destroy:  删除用户
-    list:  获取用户列表
+    create:  创建标题
+    retrieve:  检索某个标题
+    update:  更新标题
+    destroy:  删除标题
+    list:  获取标题列表
     '''
     # authentication是用户认证
-    authentication_classes = (JSONWebTokenAuthentication,)
+    authentication_classes = [JWTAuthentication]
+    print(authentication_classes)
+
     # permission是权限验证 IsAuthenticated必须登录用户 IsOwnerOrReadOnly必须是当前登录的用户
     # 判断是否登陆
     permission_classes = [IsAuthenticated]

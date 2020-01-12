@@ -159,16 +159,22 @@ REST_FRAMEWORK = {"DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.AutoSchema",
                       # ’rest_framework.permissions.IsAuthenticatedOrReadOnly’,
                       #   'rest_framework.permissions.IsAdminUser'
                   ),
+                  'EXCEPTION_HANDLER': (
+                      'utils.exception.custom_exception_handler'
+                  )
                   }
+SECRET_KEY = 'test'
 # 设置过期时间
 JWT_AUTH = {
     # token 有效期
     'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=8),
+    'JWT_AUTH_HEADER_PREFIX': 'TOKEN',  # 在 http头 中的 开头， 默认为 JWT ，可以修改
     'JWT_ALLOW_REFRESH': True,
     # 续期有效期（该设置可在24小时内带未失效的token 进行续期）
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(hours=24),
     # 自定义返回格式，需要手工创建
     'JWT_RESPONSE_PAYLOAD_HANDLER': 'user.utils.jwt_response_payload_handler',
+    'JWT_SECRET_KEY': SECRET_KEY,  # jwt 生成 token 所使用的 key 。
 }
 # 下面是新增的配置
 STATICFILES_DIRS = [
