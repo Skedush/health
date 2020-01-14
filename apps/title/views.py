@@ -24,7 +24,7 @@ class TitleViewset(CustomViewBase):
     '''
     # authentication是用户认证
     authentication_classes = [JWTAuthentication]
-    print(authentication_classes)
+    # authentication_classes = [JSONWebTokenAuthentication, ]
 
     # permission是权限验证 IsAuthenticated必须登录用户 IsOwnerOrReadOnly必须是当前登录的用户
     # 判断是否登陆
@@ -39,3 +39,9 @@ class TitleViewset(CustomViewBase):
     filter_fields = ('is_delete',)
     # 排序
     ordering_fields = ('updated', 'created',)
+
+    # def get_queryset(self):
+    #     if self.request.user.is_superuser:
+    #         return Title.objects.all()
+    #     else:
+    #         return Title.objects.filter(user=self.request.user)

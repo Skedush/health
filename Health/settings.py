@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',  # 使用DRF
+    'django_filters',
     'rest_framework.authtoken',  # 设置token
     'rest_framework_swagger',  # 使用swagger
     'drf_yasg',
@@ -168,7 +169,7 @@ SECRET_KEY = 'test'
 JWT_AUTH = {
     # token 有效期
     'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=8),
-    'JWT_AUTH_HEADER_PREFIX': 'TOKEN',  # 在 http头 中的 开头， 默认为 JWT ，可以修改
+    # 'JWT_AUTH_HEADER_PREFIX': 'TOKEN',  # 在 http头 中的 开头， 默认为 JWT ，可以修改
     'JWT_ALLOW_REFRESH': True,
     # 续期有效期（该设置可在24小时内带未失效的token 进行续期）
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(hours=24),

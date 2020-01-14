@@ -9,5 +9,4 @@ router.register(r'user', UserViewset)
 
 urlpatterns = [
     path('', include(router.urls)),  # 使用Django REST framework路由系统
-
 ]

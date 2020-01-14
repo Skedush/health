@@ -9,7 +9,8 @@ from utils.customViewBase import CustomViewBase
 from .serializers import UserSerializer
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from utils.permissions import IsOwnerOrReadOnly
-from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+# from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+from utils.JWTAuthentication import JWTAuthentication
 
 
 class UserViewset(CustomViewBase):
@@ -22,7 +23,8 @@ class UserViewset(CustomViewBase):
     list:  获取用户列表
     '''
     # authentication是用户认证
-    authentication_classes = (JSONWebTokenAuthentication,)
+    authentication_classes = [JWTAuthentication]
+    # authentication_classes = (JSONWebTokenAuthentication,)
     # permission是权限验证 IsAuthenticated必须登录用户 IsOwnerOrReadOnly必须是当前登录的用户
     # 判断是否登陆
     permission_classes = [IsAuthenticated]

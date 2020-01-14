@@ -22,7 +22,7 @@ class BaseResponse(Response):
         self._data = data
 
         self.data = {"code": code, "message": msg,
-                     success: success, "data": data}
+                     "success": success, "data": data}
         self.template_name = template_name
         self.exception = exception
         self.content_type = content_type
