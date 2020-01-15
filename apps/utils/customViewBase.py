@@ -24,7 +24,8 @@ class CustomViewBase(viewsets.ModelViewSet):
     search_fields = ()
     filter_backends = (rest_framework.DjangoFilterBackend,
                        filters.SearchFilter, filters.OrderingFilter,)
-#创建对象
+# 创建对象
+
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -32,7 +33,7 @@ class CustomViewBase(viewsets.ModelViewSet):
         headers = self.get_success_headers(serializer.data)
         return BaseResponse(data=serializer.data, msg="创建成功", code=201, success=True, status=status.HTTP_201_CREATED, headers=headers)
 
-#获取列表
+# 获取列表
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
         page = self.paginate_queryset(queryset)
@@ -43,13 +44,13 @@ class CustomViewBase(viewsets.ModelViewSet):
         serializer = self.get_serializer(queryset, many=True)
         return BaseResponse(data=serializer.data, code=200, success=True, msg="success", status=status.HTTP_200_OK)
 
-#获取详情
+# 获取详情
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
         return BaseResponse(data=serializer.data, code=200, success=True, msg="success", status=status.HTTP_200_OK)
 
-#更新数据
+# 更新数据
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', False)
         instance = self.get_object()
@@ -65,8 +66,9 @@ class CustomViewBase(viewsets.ModelViewSet):
 
         return BaseResponse(data=serializer.data, msg="更新成功", success=True, code=200, status=status.HTTP_200_OK)
 
-#删除数据
+# 删除数据
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
-        self.perform_destroy(instance)
+        instance.is_delete = True
+        self.perform_update(instance)
         return BaseResponse(data=[], code=204, success=True, msg="删除成功", status=status.HTTP_204_NO_CONTENT)

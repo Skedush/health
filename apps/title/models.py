@@ -14,7 +14,7 @@ class Title(models.Model):
     created = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
     # 时间类型 auto_now无论是你添加还是修改对象，时间为你添加或者修改的时间。
     updated = models.DateTimeField(auto_now=True, verbose_name='更新时间')
-    is_delete = models.BooleanField(default=False, verbose_name='是否删除')
+    is_delete = models.BooleanField(default=False, verbose_name='逻辑删除')
 
     class Meta:
         db_table = 'h_title'

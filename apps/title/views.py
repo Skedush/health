@@ -11,6 +11,8 @@ from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnl
 from utils.permissions import IsOwnerOrReadOnly
 # from rest_framework_jwt.authentication import JSONWebTokenAuthentication, BaseJSONWebTokenAuthentication
 from utils.JWTAuthentication import JWTAuthentication
+from utils.response import BaseResponse
+from .titleFilter import TitleFilter
 
 
 class TitleViewset(CustomViewBase):
@@ -36,12 +38,13 @@ class TitleViewset(CustomViewBase):
     # 搜索
     search_fields = ('title_name', 'user',)
     # 过滤
-    filter_fields = ('is_delete',)
+    # filter_fields = ('is_delete',)
+    filter_class = TitleFilter
     # 排序
     ordering_fields = ('updated', 'created',)
 
-    # def get_queryset(self):
-    #     if self.request.user.is_superuser:
-    #         return Title.objects.all()
-    #     else:
-    #         return Title.objects.filter(user=self.request.user)
+    def get_queryset(self):
+        if self.request.user.is_superuser:
+            return Title.objects.filter(is_delete=False)
+        else:
+            return Title.objects.filter(user=self.request.user,is_delete=False)
