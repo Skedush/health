@@ -44,6 +44,7 @@ schema_view_swagger = get_schema_view_swagger(title='API', public=True, renderer
 urlpatterns = [
     path('', include('user.urls')),  # 使用Django REST framework路由系统
     path('', include('title.urls')),  # 使用Django REST framework路由系统
+    path('', include('category.urls')),  # 使用Django REST framework路由系统
 
     path(r'login', obtain_jwt_token),
     path(r"refresh", refresh_jwt_token),
