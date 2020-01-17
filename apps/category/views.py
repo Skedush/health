@@ -18,11 +18,11 @@ from utils.response import BaseResponse
 class CategoryViewset(CustomViewBase):
     '''
     修改局部数据
-    create:  创建标题
-    retrieve:  检索某个标题
-    update:  更新标题
-    destroy:  删除标题
-    list:  获取标题列表
+    create:  创建分类
+    retrieve:  检索某个分类
+    update:  更新分类
+    destroy:  删除分类
+    list:  获取分类列表
     '''
     # authentication是用户认证
     authentication_classes = [JWTAuthentication]
