@@ -20,9 +20,9 @@ class EntrySerializer(serializers.ModelSerializer):
     is_delete = serializers.HiddenField(
         default=False)
 
-    entry = DicEntrySerializer(many=True)
+    entryIds = DicEntrySerializer(many=True)
 
     class Meta:
         model = Entry
         # fields = '__all__'  # 序列化全部字段，实际中不建议使用，因为像password等字段是不应该返回给前端的
-        fields = ('id', 'title', 'content', 'entry', 'is_delete')  # 指定序列化的字段
+        fields = ('id', 'title', 'content', 'entryIds', 'is_delete')  # 指定序列化的字段
