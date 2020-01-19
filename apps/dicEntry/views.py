@@ -42,3 +42,11 @@ class EntryViewset(CustomViewBase):
     # filter_class = TitleFilter
     # 排序
     ordering_fields = ('id')
+
+    def create(self, request, *args, **kwargs):
+        print(request.data)
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return BaseResponse(data=serializer.data, msg="创建成功", code=201, success=True, status=status.HTTP_201_CREATED, headers=headers)
