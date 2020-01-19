@@ -10,11 +10,11 @@ class Entry(models.Model):
     category = models.ForeignKey(
         'category.Category', null=True, on_delete=models.SET_NULL, verbose_name='分类id外键')
 
-    title = models.ForeignKey('title.Title', null=True,
-                              on_delete=models.SET_NULL)
+    title = models.CharField(max_length=255, null=True,
+                             verbose_name='条目标题')
 
-    content = models.CharField(max_length=255, null=True,
-                               blank=True, verbose_name='条目内容')
+    remark = models.CharField(max_length=255, null=True,
+                              blank=True, verbose_name='条目内容')
 
     # 时间类型 auto_now_add为添加时的时间，更新对象时不会有变动。
     created = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
