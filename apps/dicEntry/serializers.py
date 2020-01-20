@@ -12,7 +12,7 @@ class DicEntrySerializer(serializers.ModelSerializer):
     class Meta:
         model = Entry
         # fields = '__all__'  # 序列化全部字段，实际中不建议使用，因为像password等字段是不应该返回给前端的
-        fields = ('id', 'title', 'remark', 'is_delete')  # 指定序列化的字段
+        fields = ('id', 'title', 'remark', 'is_delete', 'category')  # 指定序列化的字段
 
 
 class EntrySerializer(serializers.ModelSerializer):
@@ -27,7 +27,12 @@ class EntrySerializer(serializers.ModelSerializer):
     class Meta:
         model = Entry
         # fields = '__all__'  # 序列化全部字段，实际中不建议使用，因为像password等字段是不应该返回给前端的
-        fields = ('id', 'title', 'remark', 'entry', 'is_delete')  # 指定序列化的字段
+        fields = ('id', 'title', 'remark', 'entry',
+                  'is_delete', 'category')  # 指定序列化的字段
+
+    def validate(self, attrs):
+        del attrs["entry"]
+        return attrs
 
     # def create(self, validated_data):
     #     print('qweqweq')

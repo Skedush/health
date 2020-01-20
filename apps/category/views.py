@@ -25,12 +25,12 @@ class CategoryViewset(CustomViewBase):
     list:  获取分类列表
     '''
     # authentication是用户认证
-    authentication_classes = [JWTAuthentication]
+    # authentication_classes = [JWTAuthentication]
     # authentication_classes = [JSONWebTokenAuthentication, ]
 
     # permission是权限验证 IsAuthenticated必须登录用户 IsOwnerOrReadOnly必须是当前登录的用户
     # 判断是否登陆
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     # drf 过滤&搜索&排序

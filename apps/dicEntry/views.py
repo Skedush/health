@@ -12,6 +12,8 @@ from utils.permissions import IsOwnerOrReadOnly
 # from rest_framework_jwt.authentication import JSONWebTokenAuthentication, BaseJSONWebTokenAuthentication
 from utils.JWTAuthentication import JWTAuthentication
 from utils.response import BaseResponse
+from rest_framework import status
+
 # from .titleFilter import TitleFilter
 
 
@@ -46,6 +48,7 @@ class EntryViewset(CustomViewBase):
     def create(self, request, *args, **kwargs):
         print(request.data)
         serializer = self.get_serializer(data=request.data)
+        print(serializer.is_valid)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
