@@ -23,16 +23,23 @@ class Entry(models.Model):
     # boll类型
     is_delete = models.BooleanField(default=False, verbose_name='是否删除')
 
-    entry = models.ManyToManyField(
-        'self', through='Relationship', symmetrical=False, related_name='related_to')
+    entrys = models.ManyToManyField(
+        'self', through='Entryship', symmetrical=False, )
 
     class Meta:
         db_table = 'h_entry'
         verbose_name = '条目信息表'
         verbose_name_plural = verbose_name
 
+    def add_entryship(self, entry, category_id):
+        entryship, created = Entryship.objects.get_or_create(
+            from_entry=self,
+            to_entry=entry,
+            category_id=category_id)
+        return entryship
 
-class Relationship(models.Model):
+
+class Entryship(models.Model):
 
     id = models.AutoField(primary_key=True)
 
