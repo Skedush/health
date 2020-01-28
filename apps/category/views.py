@@ -40,5 +40,9 @@ class CategoryViewset(CustomViewBase):
     # 过滤
     # filter_fields = ('is_delete',)
     # filter_class = TitleFilter
+    filter_fields = ('name',)
     # 排序
     ordering_fields = ('id')
+
+    def get_queryset(self):
+        return Category.objects.filter(is_delete=False)

@@ -16,6 +16,9 @@ class Entry(models.Model):
     remark = models.CharField(max_length=255, null=True,
                               blank=True, verbose_name='条目内容')
 
+    sort = models.IntegerField(default=999, null=True,
+                               blank=True, verbose_name='条目排序')
+
     # 时间类型 auto_now_add为添加时的时间，更新对象时不会有变动。
     created = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
     # 时间类型 auto_now无论是你添加还是修改对象，时间为你添加或者修改的时间。
@@ -49,8 +52,8 @@ class Entryship(models.Model):
     to_entry = models.ForeignKey(Entry, null=True,
                                  on_delete=models.SET_NULL, verbose_name='条目关联id外键', related_name='to_entry')
 
-    category_id = models.IntegerField(
-        null=True, blank=True, verbose_name='条目关联分类id外键')
+    category = models.ForeignKey('category.Category', on_delete=models.SET_NULL,
+                                 null=True, blank=True, verbose_name='条目关联分类id外键')
 
     class Meta:
         db_table = 'h_entry_ship'

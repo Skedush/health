@@ -23,11 +23,11 @@ class UserViewset(CustomViewBase):
     list:  获取用户列表
     '''
     # authentication是用户认证
-    authentication_classes = [JWTAuthentication]
+    # authentication_classes = [JWTAuthentication]
     # authentication_classes = (JSONWebTokenAuthentication,)
     # permission是权限验证 IsAuthenticated必须登录用户 IsOwnerOrReadOnly必须是当前登录的用户
     # 判断是否登陆
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     queryset = User.objects.all()
     serializer_class = UserSerializer
     # drf 过滤&搜索&排序

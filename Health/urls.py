@@ -46,6 +46,7 @@ urlpatterns = [
     path('', include('title.urls')),  # 使用Django REST framework路由系统
     path('', include('category.urls')),  # 使用Django REST framework路由系统
     path('', include('dicEntry.urls')),  # 使用Django REST framework路由系统
+    path('', include('userEntry.urls')),  # 使用Django REST framework路由系统
 
     path(r'login', obtain_jwt_token),
     path(r"refresh", refresh_jwt_token),

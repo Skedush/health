@@ -47,4 +47,4 @@ class TitleViewset(CustomViewBase):
         if self.request.user.is_superuser:
             return Title.objects.filter(is_delete=False)
         else:
-            return Title.objects.filter(user=self.request.user,is_delete=False)
+            return Title.objects.filter(user=self.request.user, is_delete=False)
