@@ -1,9 +1,15 @@
 from rest_framework import serializers
 from .models import EntryInfo, UserEntry, UserEntryOfEntry
-from dicEntry.models import Entry
-from dicEntry.serializers import DicEntrySerializer
+from dicEntry.models import Entry, Entryship
+from category.models import Category
+from dicEntry.serializers import DicEntrySerializer, EntrySerializer
+from category.serializers import ResultCategorySerializer
+from title.serializers import TitleSerializer
+from django.db.models import Q
+
 import time
 import datetime
+import json
 
 
 class EntryInfoSerializer(serializers.ModelSerializer):
@@ -13,6 +19,7 @@ class EntryInfoSerializer(serializers.ModelSerializer):
     is_delete = serializers.HiddenField(
         default=False)
     entrys = serializers.SerializerMethodField()
+    # title=TitleSerializer()
 
     class Meta:
         model = EntryInfo
@@ -57,3 +64,47 @@ class UserEntrySerializer(serializers.ModelSerializer):
             UserEntryOfEntry.objects.create(
                 user_entry=userEntry, entry=entry_Id)
         return userEntry
+
+
+class ResultUserEntrySerializer(serializers.ModelSerializer):
+    entry_info = serializers.SlugRelatedField(
+        slug_field="id", queryset=EntryInfo.objects.all())
+
+    entryship = EntrySerializer(many=True, read_only=True)
+
+    # result = serializers.SerializerMethodField(label='结果展示')
+
+    # entrys = serializers.PrimaryKeyRelatedField(
+    #     many=True, queryset=Entry.objects.all())
+
+    class Meta:
+        model = UserEntry
+        # fields = '__all__'  # 序列化全部字段，实际中不建议使用，因为像password等字段是不应该返回给前端的
+        fields = ('id', 'name', 'gender', 'height', 'weight', 'age', 'address', 'waistline', 'systolic_pressure', 'diastolic_pressure', 'blood_sugar', 'remark', 'phone', 'entryship',
+                  'entry_info')  # 指定序列化的字段
+
+    # def get_result(self, obj):
+    #     """
+    #     返回当前角色用户数量
+    #     固定写法,obj代表Role实例对象,模型类配置了反向引用user代表当前角色用户
+    #     """
+    #     entryShip = obj.entryship.all()
+
+    #     # categorys = Category.objects.exclude(
+    #     #     id=obj.entry_info.category.id)
+    #     categorys = Category.objects.filter(
+    #         entrys__title='肾')
+
+    #     for categoryInfo in categorys:
+    #         temp = []
+    #         for entrySelect in entryShip:
+    #             entrys = Entryship.objects.filter(
+    #                 from_entry=entrySelect, category=categoryInfo)
+    #             for entry in entrys:
+    #                 entry.to_entry.category
+    #                 # print(entry.to_entry.category)
+    #                 temp.append(entry.to_entry)
+
+    #     # categoryInfo.entrys.set(temp)
+
+    #     return ResultCategorySerializer(categorys, many=True, read_only=True).data

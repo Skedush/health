@@ -8,7 +8,7 @@ class Entry(models.Model):
     id = models.AutoField(primary_key=True)
 
     category = models.ForeignKey(
-        'category.Category', null=True, on_delete=models.SET_NULL, verbose_name='分类id外键')
+        'category.Category',  related_name='entrys', on_delete=models.PROTECT, verbose_name='分类id外键')
 
     title = models.CharField(max_length=255, null=True,
                              verbose_name='条目标题')
@@ -34,12 +34,12 @@ class Entry(models.Model):
         verbose_name = '条目信息表'
         verbose_name_plural = verbose_name
 
-    def add_entryship(self, entry, category_id):
-        entryship, created = Entryship.objects.get_or_create(
-            from_entry=self,
-            to_entry=entry,
-            category_id=category_id)
-        return entryship
+    # def add_entryship(self, entry, category_id):
+    #     entryship, created = Entryship.objects.get_or_create(
+    #         from_entry=self,
+    #         to_entry=entry,
+    #         category_id=category_id)
+    #     return entryship
 
 
 class Entryship(models.Model):
@@ -52,8 +52,8 @@ class Entryship(models.Model):
     to_entry = models.ForeignKey(Entry, null=True,
                                  on_delete=models.SET_NULL, verbose_name='条目关联id外键', related_name='to_entry')
 
-    category = models.ForeignKey('category.Category', on_delete=models.SET_NULL,
-                                 null=True, blank=True, verbose_name='条目关联分类id外键')
+    category = models.ForeignKey('category.Category', on_delete=models.PROTECT,
+                                 verbose_name='条目关联分类id外键')
 
     class Meta:
         db_table = 'h_entry_ship'

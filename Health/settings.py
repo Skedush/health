@@ -56,19 +56,15 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
-    # 'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-CORS_ORIGIN_ALLOW_ALL = True
-
-CORS_ALLOW_CREDENTIALS = True  # 允许携带cookie
 
 ROOT_URLCONF = 'Health.urls'
 
@@ -172,7 +168,7 @@ JWT_AUTH = {
     # 续期有效期（该设置可在24小时内带未失效的token 进行续期）
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(hours=24),
     # 自定义返回格式，需要手工创建
-    'JWT_RESPONSE_PAYLOAD_HANDLER': 'user.utils.jwt_response_payload_handler',
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'utils.utils.jwt_response_payload_handler',
     'JWT_SECRET_KEY': SECRET_KEY,  # jwt 生成 token 所使用的 key 。
 }
 # 下面是新增的配置
@@ -202,5 +198,23 @@ SWAGGER_SETTINGS = {
         }
     }
 }
+
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_WHITELIST = (
+    '*'
+)
+CORS_ALLOW_METHODS = (
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+    'VIEW',
+)
+CORS_ALLOW_HEADERS = (
+    '*'
+)
 
 ALLOWED_HOSTS = "*"

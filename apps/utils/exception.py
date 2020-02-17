@@ -13,6 +13,7 @@ def custom_exception_handler(exc, context):
     if response is not None:
         response.data.clear()
         response.data['data'] = {}
+        response.data['success']=False
 
         if response.status_code == 404:
             try:
@@ -26,7 +27,7 @@ def custom_exception_handler(exc, context):
             response.data['code'] = CODE_PARAMETER_ERROR
 
         elif response.status_code == 401:
-            response.data['message'] = exc.detail
+            response.data['message'] = MSG_AUTH_ERROR
             response.data['code'] = CODE_AUTH_ERROR
 
         elif response.status_code >= 500:

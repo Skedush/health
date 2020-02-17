@@ -44,7 +44,7 @@ class EntryViewset(CustomViewBase):
     # filter_class = TitleFilter
     filter_fields = ('title',)
     # 排序
-    ordering_fields = ('id')
+    # ordering_fields = ('sort')
 
     def get_queryset(self):
         return Entry.objects.filter(is_delete=False)

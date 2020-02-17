@@ -3,8 +3,7 @@
 # -*- coding:utf-8 -*-
 
 from rest_framework.response import Response
-from rest_framework import status
-from rest_framework import viewsets
+from rest_framework import viewsets, mixins, status
 from rest_framework.decorators import action
 from rest_framework.pagination import PageNumberPagination
 from django.shortcuts import get_object_or_404
@@ -73,3 +72,12 @@ class CustomViewBase(viewsets.ModelViewSet):
         instance.is_delete = True
         self.perform_update(instance)
         return BaseResponse(data=[], code=204, success=True, msg="删除成功", status=status.HTTP_204_NO_CONTENT)
+
+
+class CustomRetrieveModelMixin(
+        mixins.RetrieveModelMixin,
+        viewsets.GenericViewSet):
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        return BaseResponse(data=serializer.data, code=200, success=True, msg="success", status=status.HTTP_200_OK)
