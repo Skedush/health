@@ -33,6 +33,8 @@ class Entry(models.Model):
         db_table = 'h_entry'
         verbose_name = '条目信息表'
         verbose_name_plural = verbose_name
+        ordering = ['sort']
+
 
     # def add_entryship(self, entry, category_id):
     #     entryship, created = Entryship.objects.get_or_create(
@@ -59,3 +61,4 @@ class Entryship(models.Model):
         db_table = 'h_entry_ship'
         verbose_name = '条目信息自关联表'
         verbose_name_plural = verbose_name
+        ordering = ['from_entry']

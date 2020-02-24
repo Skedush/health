@@ -44,27 +44,27 @@ class UserEntry(models.Model):
                             blank=True, verbose_name='填写表单人员姓名')
     gender = models.CharField(
         max_length=2, default='1', choices=gender_type_choices,  verbose_name='性别')
-    height = models.IntegerField(null=True,
+    height = models.CharField(null=True,max_length=10,
                                  blank=True, verbose_name='身高cm')
 
-    weight = models.IntegerField(null=True,
+    weight = models.CharField(null=True,max_length=10,
                                  blank=True, verbose_name='体重kg')
 
-    age = models.IntegerField(null=True,
+    age = models.CharField(null=True,max_length=10,
                               blank=True, verbose_name='年龄')
     address = models.CharField(max_length=255, null=True,
                                blank=True, verbose_name='地址')
 
-    waistline = models.IntegerField(null=True,
+    waistline = models.CharField(null=True,max_length=10,
                                     blank=True, verbose_name='腰围cm')
 
-    systolic_pressure = models.IntegerField(null=True,
+    systolic_pressure = models.CharField(null=True,max_length=20,
                                             blank=True, verbose_name='收缩压mmHg')
 
-    diastolic_pressure = models.IntegerField(null=True,
+    diastolic_pressure = models.CharField(null=True,max_length=20,
                                              blank=True, verbose_name='舒张压mmHg')
 
-    blood_sugar = models.IntegerField(null=True,
+    blood_sugar = models.CharField(null=True,max_length=20,
                                       blank=True, verbose_name='血糖mmol/L')
 
     remark = models.CharField(max_length=255, null=True,
@@ -87,6 +87,7 @@ class UserEntry(models.Model):
         db_table = 'h_user_entry'
         verbose_name = '用户选择条目信息表'
         verbose_name_plural = verbose_name
+        ordering = ['-id']
 
 
 class UserEntryOfEntry(models.Model):

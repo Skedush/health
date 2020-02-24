@@ -33,7 +33,7 @@ class EntryViewset(CustomViewBase):
     # permission是权限验证 IsAuthenticated必须登录用户 IsOwnerOrReadOnly必须是当前登录的用户
     # 判断是否登陆
     # permission_classes = [IsAuthenticated]
-    queryset = Entry.objects.order_by('sort')
+    queryset = Entry.objects.all()
     serializer_class = EntrySerializer
     # drf 过滤&搜索&排序
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter,)
@@ -44,7 +44,7 @@ class EntryViewset(CustomViewBase):
     # filter_class = TitleFilter
     filter_fields = ('title',)
     # 排序
-    # ordering_fields = ('sort')
+    ordering_fields = ('-sort')
 
     def get_queryset(self):
         return Entry.objects.filter(is_delete=False)

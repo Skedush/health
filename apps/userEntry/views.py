@@ -99,7 +99,7 @@ class UserEntryViewset(CustomViewBase):
     filter_fields = ('entry_info',)
     # filter_class = TitleFilter
     # 排序
-    ordering_fields = ('-id')
+    # ordering_fields = ('-id')
 
     def get_permissions(self):
         try:
@@ -111,6 +111,7 @@ class UserEntryViewset(CustomViewBase):
 
     def get_queryset(self):
         return UserEntry.objects.filter(is_delete=False)
+    
 
 
 class ResultUserEntryViewset(CustomRetrieveModelMixin):
