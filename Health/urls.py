@@ -15,13 +15,13 @@ Including another URLconf
 """
 # from rest_framework_swagger.views import get_swagger_view
 from rest_framework_swagger import renderers
-from user.views import UserViewset
 from django.urls import path, include
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from rest_framework.schemas import get_schema_view as get_schema_view_swagger
 from drf_yasg import openapi
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
+from django.contrib import admin
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -50,6 +50,7 @@ urlpatterns = [
 
     path(r'login', obtain_jwt_token),
     path(r"refresh", refresh_jwt_token),
+    path(r"admin/", admin.site.urls),
 
     path(r'api_doc/', schema_view.with_ui('redoc',
                                           cache_timeout=0), name="CMDB API"),
