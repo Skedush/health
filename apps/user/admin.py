@@ -14,6 +14,11 @@ class UserProfileAdmin(UserAdmin):
         (gettext_lazy('Important dates'), {
          'fields': ('last_login', 'date_joined')}),
     )
+    
+    list_per_page = 10
+    ordering = ('-id',)
+
+    
 
 
 # Register your models here.

@@ -28,7 +28,8 @@ class UserViewset(CustomViewBase):
     # permission是权限验证 IsAuthenticated必须登录用户 IsOwnerOrReadOnly必须是当前登录的用户
     # 判断是否登陆
     # permission_classes = [IsAuthenticated]
-    queryset = User.objects.all()
+    queryset = User.objects.order_by('-id')
+
     serializer_class = UserSerializer
     # drf 过滤&搜索&排序
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter,)
@@ -38,3 +39,11 @@ class UserViewset(CustomViewBase):
     filter_fields = ('gender',)
     # 排序
     ordering_fields = ('updated', 'created',)
+
+    
+
+#     def get_object(self, queryset=None):
+#         obj = super().get_object(queryset=queryset)
+#         if obj.author != self.request.user:
+#             raise Http404()
+#         return obj

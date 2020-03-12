@@ -24,3 +24,5 @@ class User(AbstractUser):
         db_table = 'h_user'
         verbose_name = '用户表'
         verbose_name_plural = verbose_name
+        ordering = ['-id']
+

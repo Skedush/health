@@ -13,6 +13,7 @@ from utils.permissions import IsOwnerOrReadOnly
 from utils.JWTAuthentication import JWTAuthentication
 from utils.response import BaseResponse
 from rest_framework import status
+from utils.DrfPaginate import DrfPaginate
 
 # from .titleFilter import TitleFilter
 
@@ -91,6 +92,7 @@ class UserEntryViewset(CustomViewBase):
                                     'destroy': [IsAuthenticated],}
     queryset = UserEntry.objects.all()
     serializer_class = UserEntrySerializer
+    pagination_class = DrfPaginate
     # drf 过滤&搜索&排序
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter,)
     # 搜索

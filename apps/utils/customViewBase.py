@@ -25,6 +25,24 @@ class CustomViewBase(viewsets.ModelViewSet):
                        filters.SearchFilter, filters.OrderingFilter,)
 # 创建对象
 
+    def initialize_request(self, request, *args, **kwargs):
+        """
+        Set the `.action` attribute on the view, depending on the request method.
+        """
+        request = super(viewsets.ViewSetMixin, self).initialize_request(request, *args, **kwargs)
+
+        method = request.method.lower()
+        if method == 'options':
+            # This is a special case as we always provide handling for the
+            # options method in the base `View` class.
+            # Unlike the other explicitly defined actions, 'metadata' is implicit.
+            self.action = 'metadata'
+        else:
+            self.action = self.action_map.get(method)
+        return request
+
+    
+
     def create(self, request, *args, **kwargs):
         print(request.data)
         serializer = self.get_serializer(data=request.data)
@@ -35,11 +53,12 @@ class CustomViewBase(viewsets.ModelViewSet):
 
 # 获取列表
     def list(self, request, *args, **kwargs):
+        print('request: ', request)
         queryset = self.filter_queryset(self.get_queryset())
         page = self.paginate_queryset(queryset)
         if page is not None:
             serializer = self.get_serializer(page, many=True)
-            return self.get_paginated_response(serializer.data)
+            return BaseResponse(data=self.get_paginated_response(serializer.data), code=200, success=True, msg="success", status=status.HTTP_200_OK)
 
         serializer = self.get_serializer(queryset, many=True)
         return BaseResponse(data=serializer.data, code=200, success=True, msg="success", status=status.HTTP_200_OK)

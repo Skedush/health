@@ -5,11 +5,13 @@ from category.models import Category
 from dicEntry.serializers import DicEntrySerializer, EntrySerializer
 from category.serializers import ResultCategorySerializer
 from title.serializers import TitleSerializer
-from django.db.models import Q
 
-import time
-import datetime
-import json
+
+class UserEntryDicSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Entry
+        # fields = '__all__'  # 序列化全部字段，实际中不建议使用，因为像password等字段是不应该返回给前端的
+        fields = ( 'title')  # 指定序列化的字段
 
 
 class EntryInfoSerializer(serializers.ModelSerializer):
@@ -43,7 +45,9 @@ class UserEntrySerializer(serializers.ModelSerializer):
     entry_info = serializers.SlugRelatedField(
         slug_field="id", queryset=EntryInfo.objects.all())
 
-    entryship = DicEntrySerializer(many=True, read_only=True)
+    # entryship = UserEntryDicSerializer(many=True, read_only=True)
+    entryship = serializers.SlugRelatedField(
+        many=True, read_only=True, slug_field="title")
     entry_Ids = serializers.SlugRelatedField(
         many=True, write_only=True, slug_field="id", queryset=Entry.objects.all())
 

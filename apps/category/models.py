@@ -15,6 +15,8 @@ class Category(models.Model):
     # boll类型
     is_delete = models.BooleanField(default=False, verbose_name='是否删除')
 
+    def __str__(self):
+        return self.name
     class Meta:
         db_table = 'h_category'
         verbose_name = '分类表'
