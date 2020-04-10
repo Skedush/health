@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',  # 设置token
     'rest_framework_swagger',  # 使用swagger
     'drf_yasg',
-    'corsheaders',
+    # 'corsheaders',
     'user',
     'title',
     'category',
@@ -58,7 +58,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    # 'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -199,22 +199,22 @@ SWAGGER_SETTINGS = {
     }
 }
 
-CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ORIGIN_WHITELIST = (
-    '*'
-)
-CORS_ALLOW_METHODS = (
-    'DELETE',
-    'GET',
-    'OPTIONS',
-    'PATCH',
-    'POST',
-    'PUT',
-    'VIEW',
-)
-CORS_ALLOW_HEADERS = (
-    '*'
-)
+# CORS_ALLOW_CREDENTIALS = True
+# CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_WHITELIST = (
+#     '*'
+# )
+# CORS_ALLOW_METHODS = (
+#     'DELETE',
+#     'GET',
+#     'OPTIONS',
+#     'PATCH',
+#     'POST',
+#     'PUT',
+#     'VIEW',
+# )
+# CORS_ALLOW_HEADERS = (
+#     '*'
+# )
 
 ALLOWED_HOSTS = "*"
