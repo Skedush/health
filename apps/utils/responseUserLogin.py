@@ -25,7 +25,10 @@ def jwt_response_payload_handler(token, user=None, request=None, role=None):
             'name': name,
             'username': user.username,
             'email': user.email,
+            'isStaff':user.is_staff,
             'token': token,
+            'gender':user.gender,
+            'phone':user.phone
         }
 
     }

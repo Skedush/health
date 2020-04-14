@@ -29,6 +29,9 @@ class Entry(models.Model):
     entrys = models.ManyToManyField(
         'self', through='Entryship', symmetrical=False, )
 
+    def __str__(self):
+        return self.title
+
     class Meta:
         db_table = 'h_entry'
         verbose_name = '条目信息表'

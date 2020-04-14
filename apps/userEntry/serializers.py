@@ -46,19 +46,21 @@ class UserEntrySerializer(serializers.ModelSerializer):
         slug_field="id", queryset=EntryInfo.objects.all())
 
     # entryship = UserEntryDicSerializer(many=True, read_only=True)
-    entryship = serializers.SlugRelatedField(
-        many=True, read_only=True, slug_field="title")
+    # entryship = serializers.SlugRelatedField(
+    #     many=True, read_only=True, slug_field="title")
     entry_Ids = serializers.SlugRelatedField(
         many=True, write_only=True, slug_field="id", queryset=Entry.objects.all())
-
+    created = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S", required=False, read_only=True)
     # entrys = serializers.PrimaryKeyRelatedField(
     #     many=True, queryset=Entry.objects.all())
 
     class Meta:
         model = UserEntry
         # fields = '__all__'  # 序列化全部字段，实际中不建议使用，因为像password等字段是不应该返回给前端的
-        fields = ('id', 'name', 'gender', 'height', 'weight', 'age', 'address', 'waistline', 'systolic_pressure', 'diastolic_pressure', 'blood_sugar', 'remark', 'phone', 'entryship',
-                  'is_delete',  'entry_Ids', 'entry_info')  # 指定序列化的字段
+        # fields = ('id', 'name', 'gender', 'height', 'weight', 'age', 'address', 'waistline', 'systolic_pressure', 'diastolic_pressure', 'blood_sugar', 'remark', 'phone', 'entryship',
+        #           'is_delete',  'entry_Ids', 'entry_info')  # 指定序列化的字段
+        fields = ('id', 'name', 'gender', 'height', 'weight', 'age', 'address', 'waistline', 'systolic_pressure', 'diastolic_pressure', 'blood_sugar', 'remark', 'phone' ,'created',
+                    'is_delete',  'entry_Ids', 'entry_info')  # 指定序列化的字段
 
     def create(self, validated_data):
         entry_Ids = validated_data.pop('entry_Ids')

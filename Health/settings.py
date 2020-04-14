@@ -28,7 +28,7 @@ sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 SECRET_KEY = 'kz^6p_(@0(le-40zfh^7!99!l7w3qf%-hkez@)w5hr+pivoj!_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 AUTH_USER_MODEL = 'user.User'
 
@@ -95,6 +95,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'health',  # 连接数据库的名称
         'USER': 'root',  # 连接数据库的用户名
+        # 'PASSWORD': 'root',  # 连接数据库的密码
         'PASSWORD': 'RootAdmin?',  # 连接数据库的密码
         'HOST': '127.0.0.1',  # 连接数据库的地址
         'PORT': '3306',  # 连接数据库的端口
@@ -158,7 +159,7 @@ REST_FRAMEWORK = {"DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.AutoSchema",
                       'utils.exception.custom_exception_handler'
                   )
                   }
-SECRET_KEY = 'test'
+SECRET_KEY = 'health'
 # 设置过期时间
 JWT_AUTH = {
     # token 有效期
@@ -168,7 +169,7 @@ JWT_AUTH = {
     # 续期有效期（该设置可在24小时内带未失效的token 进行续期）
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(hours=24),
     # 自定义返回格式，需要手工创建
-    'JWT_RESPONSE_PAYLOAD_HANDLER': 'utils.utils.jwt_response_payload_handler',
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'utils.responseUserLogin.jwt_response_payload_handler',
     'JWT_SECRET_KEY': SECRET_KEY,  # jwt 生成 token 所使用的 key 。
 }
 # 下面是新增的配置
@@ -216,5 +217,7 @@ SWAGGER_SETTINGS = {
 # CORS_ALLOW_HEADERS = (
 #     '*'
 # )
+
+
 
 ALLOWED_HOSTS = "*"

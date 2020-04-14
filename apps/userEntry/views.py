@@ -94,7 +94,7 @@ class UserEntryViewset(CustomViewBase):
     serializer_class = UserEntrySerializer
     pagination_class = DrfPaginate
     # drf 过滤&搜索&排序
-    filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter,)
+    filter_backends = (DjangoFilterBackend, SearchFilter,)
     # 搜索
     search_fields = ('name', 'phone')
     # 过滤
