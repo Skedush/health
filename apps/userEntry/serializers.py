@@ -50,7 +50,7 @@ class UserEntrySerializer(serializers.ModelSerializer):
     #     many=True, read_only=True, slug_field="title")
     entry_Ids = serializers.SlugRelatedField(
         many=True, write_only=True, slug_field="id", queryset=Entry.objects.all())
-    created = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S", required=False, read_only=True)
+    created = serializers.DateTimeField(format="%Y-%m-%d", required=False, read_only=True)
     # entrys = serializers.PrimaryKeyRelatedField(
     #     many=True, queryset=Entry.objects.all())
 
