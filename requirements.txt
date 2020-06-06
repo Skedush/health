@@ -3,7 +3,7 @@ PyMySQL==0.9.3
 django_rest_swagger==2.1.2
 drf_yasg==1.17.0
 djangorestframework_jwt==1.11.0
-Django==2.1
+Django==2.2.13
 django_filters==0.2.1
 djangorestframework==3.11.0
 PyJWT==1.7.1
