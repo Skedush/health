@@ -1,5 +1,5 @@
 from rest_framework.response import Response
-from django.utils import six
+import six
 from .constant import CODE_SUCCESS, MSG_SUCCESS
 from rest_framework import status
 from rest_framework.serializers import Serializer

@@ -23,6 +23,7 @@ def jwt_response_payload_handler(token, user=None, request=None, role=None):
             "authenticated": True,
             'id': user.id,
             'name': name,
+            'fxId':user.last_name,
             'username': user.username,
             'email': user.email,
             'isStaff':user.is_staff,

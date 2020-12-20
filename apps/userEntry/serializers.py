@@ -11,7 +11,7 @@ class UserEntryDicSerializer(serializers.ModelSerializer):
     class Meta:
         model = Entry
         # fields = '__all__'  # 序列化全部字段，实际中不建议使用，因为像password等字段是不应该返回给前端的
-        fields = ( 'title')  # 指定序列化的字段
+        fields = ('title')  # 指定序列化的字段
 
 
 class EntryInfoSerializer(serializers.ModelSerializer):
@@ -30,7 +30,6 @@ class EntryInfoSerializer(serializers.ModelSerializer):
                   'is_delete', 'category')  # 指定序列化的字段
 
     def get_entrys(self, obj):
-        print('obj: ', obj.category.id)
         entrys = Entry.objects.filter(
             category=obj.category)
         entrys_serializer = DicEntrySerializer(entrys, many=True,
@@ -50,7 +49,8 @@ class UserEntrySerializer(serializers.ModelSerializer):
     #     many=True, read_only=True, slug_field="title")
     entry_Ids = serializers.SlugRelatedField(
         many=True, write_only=True, slug_field="id", queryset=Entry.objects.all())
-    created = serializers.DateTimeField(format="%Y-%m-%d", required=False, read_only=True)
+    created = serializers.DateTimeField(
+        format="%Y-%m-%d", required=False, read_only=True)
     # entrys = serializers.PrimaryKeyRelatedField(
     #     many=True, queryset=Entry.objects.all())
 
@@ -59,8 +59,8 @@ class UserEntrySerializer(serializers.ModelSerializer):
         # fields = '__all__'  # 序列化全部字段，实际中不建议使用，因为像password等字段是不应该返回给前端的
         # fields = ('id', 'name', 'gender', 'height', 'weight', 'age', 'address', 'waistline', 'systolic_pressure', 'diastolic_pressure', 'blood_sugar', 'remark', 'phone', 'entryship',
         #           'is_delete',  'entry_Ids', 'entry_info')  # 指定序列化的字段
-        fields = ('id', 'name', 'gender', 'height', 'weight', 'age', 'address', 'waistline', 'systolic_pressure', 'diastolic_pressure', 'blood_sugar', 'remark', 'phone' ,'created',
-                    'is_delete',  'entry_Ids', 'entry_info')  # 指定序列化的字段
+        fields = ('id', 'name', 'gender', 'height', 'weight', 'age', 'address', 'waistline', 'systolic_pressure', 'diastolic_pressure', 'blood_sugar', 'remark', 'phone', 'created',
+                  'is_delete',  'entry_Ids', 'entry_info')  # 指定序列化的字段
 
     def create(self, validated_data):
         entry_Ids = validated_data.pop('entry_Ids')
@@ -87,7 +87,7 @@ class ResultUserEntrySerializer(serializers.ModelSerializer):
         model = UserEntry
         # fields = '__all__'  # 序列化全部字段，实际中不建议使用，因为像password等字段是不应该返回给前端的
         fields = ('id', 'name', 'gender', 'height', 'weight', 'age', 'address', 'waistline', 'systolic_pressure', 'diastolic_pressure', 'blood_sugar', 'remark', 'phone', 'entryship',
-                  'entry_info')  # 指定序列化的字段
+                  'entry_info', 'created')  # 指定序列化的字段
 
     # def get_result(self, obj):
     #     """

@@ -36,7 +36,7 @@ class Entry(models.Model):
         db_table = 'h_entry'
         verbose_name = '条目信息表'
         verbose_name_plural = verbose_name
-        ordering = ['sort']
+        ordering = ['sort','id']
 
 
     # def add_entryship(self, entry, category_id):
