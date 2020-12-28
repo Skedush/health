@@ -3,7 +3,7 @@ from .models import EntryInfo, UserEntry, UserEntryOfEntry
 from dicEntry.models import Entry, Entryship
 from category.models import Category
 from dicEntry.serializers import DicEntrySerializer, EntrySerializer
-from category.serializers import ResultCategorySerializer
+from category.serializers import ResultCategorySerializer, CategorySerializer
 from title.serializers import TitleSerializer
 
 
@@ -21,6 +21,7 @@ class EntryInfoSerializer(serializers.ModelSerializer):
     is_delete = serializers.HiddenField(
         default=False)
     entrys = serializers.SerializerMethodField()
+    category = CategorySerializer(many=False, read_only=False)
     # title=TitleSerializer()
 
     class Meta:
@@ -28,6 +29,8 @@ class EntryInfoSerializer(serializers.ModelSerializer):
         # fields = '__all__'  # 序列化全部字段，实际中不建议使用，因为像password等字段是不应该返回给前端的
         fields = ('id', 'user', 'title', 'entrys',
                   'is_delete', 'category')  # 指定序列化的字段
+
+   
 
     def get_entrys(self, obj):
         entrys = Entry.objects.filter(

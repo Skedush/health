@@ -47,7 +47,9 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',  # 设置token
     'rest_framework_swagger',  # 使用swagger
     'drf_yasg',
+
     # 'corsheaders',
+    
     'user',
     'title',
     'category',
@@ -97,8 +99,10 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'health',  # 连接数据库的名称
         'USER': 'root',  # 连接数据库的用户名
+
         # 'PASSWORD': 'root',  # 连接数据库的密码
         'PASSWORD': 'RootAdmin?',  # 连接数据库的密码
+
         'HOST': '127.0.0.1',  # 连接数据库的地址
         'PORT': '3306',  # 连接数据库的端口
     }
