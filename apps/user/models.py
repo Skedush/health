@@ -19,6 +19,8 @@ class User(AbstractUser):
     date_updated = models.DateTimeField(auto_now=True, verbose_name='更新时间')
     # boll类型
     is_delete = models.BooleanField(default=False, verbose_name='是否删除')
+    is_title = models.BooleanField(default=False, verbose_name='修改标题')
+    is_vip = models.BooleanField(default=False, verbose_name='会员')
 
     class Meta:
         db_table = 'h_user'

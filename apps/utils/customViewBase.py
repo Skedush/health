@@ -53,7 +53,6 @@ class CustomViewBase(viewsets.ModelViewSet):
 
 # 获取列表
     def list(self, request, *args, **kwargs):
-        print('request: ', request)
         queryset = self.filter_queryset(self.get_queryset())
         page = self.paginate_queryset(queryset)
         if page is not None:

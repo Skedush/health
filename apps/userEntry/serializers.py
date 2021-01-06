@@ -22,6 +22,7 @@ class EntryInfoSerializer(serializers.ModelSerializer):
         default=False)
     entrys = serializers.SerializerMethodField()
     category = CategorySerializer(many=False, read_only=False)
+    title = TitleSerializer(many=False, read_only=False)
     # title=TitleSerializer()
 
     class Meta:
