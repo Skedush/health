@@ -61,7 +61,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
 
-    # 'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -100,8 +100,8 @@ DATABASES = {
         'NAME': 'health',  # 连接数据库的名称
         'USER': 'root',  # 连接数据库的用户名
 
-        # 'PASSWORD': 'root',  # 连接数据库的密码
-        'PASSWORD': 'RootAdmin?',  # 连接数据库的密码
+        'PASSWORD': 'root',  # 连接数据库的密码
+        # 'PASSWORD': 'RootAdmin?',  # 连接数据库的密码
 
         'HOST': '127.0.0.1',  # 连接数据库的地址
         'PORT': '3306',  # 连接数据库的端口
@@ -206,23 +206,23 @@ SWAGGER_SETTINGS = {
     }
 }
 
-# CORS_ALLOW_CREDENTIALS = True
-# CORS_ORIGIN_ALLOW_ALL = True
-# CORS_ORIGIN_WHITELIST = (
-#     '*'
-# )
-# CORS_ALLOW_METHODS = (
-#     'DELETE',
-#     'GET',
-#     'OPTIONS',
-#     'PATCH',
-#     'POST',
-#     'PUT',
-#     'VIEW',
-# )
-# CORS_ALLOW_HEADERS = (
-#     '*'
-# )
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_WHITELIST = (
+    '*'
+)
+CORS_ALLOW_METHODS = (
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+    'VIEW',
+)
+CORS_ALLOW_HEADERS = (
+    '*'
+)
 
 
 

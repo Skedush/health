@@ -8,7 +8,6 @@ from django_filters.rest_framework import DjangoFilterBackend
 from utils.customViewBase import CustomViewBase, CustomRetrieveModelMixin
 from .serializers import EntryInfoSerializer, UserEntrySerializer, ResultUserEntrySerializer
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly,AllowAny
-from utils.permissions import IsOwnerOrReadOnly
 # from rest_framework_jwt.authentication import JSONWebTokenAuthentication, BaseJSONWebTokenAuthentication
 from utils.JWTAuthentication import JWTAuthentication
 from utils.response import BaseResponse

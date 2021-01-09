@@ -7,7 +7,7 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from utils.customViewBase import CustomViewBase
 from .serializers import UserSerializer
-from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, IsAdminUser, AllowAny
 from utils.permissions import IsOwnerOrReadOnly
 # from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from utils.JWTAuthentication import JWTAuthentication
@@ -27,7 +27,11 @@ class UserViewset(CustomViewBase):
     # authentication_classes = (JSONWebTokenAuthentication,)
     # permission是权限验证 IsAuthenticated必须登录用户 IsOwnerOrReadOnly必须是当前登录的用户
     # 判断是否登陆
-    # permission_classes = [IsAuthenticated]
+    permission_classes_by_action = {'create': [AllowAny],
+                                    'list': [IsAdminUser],
+                                    'partial_update': [IsOwnerOrReadOnly],
+                                    'retrieve': [IsOwnerOrReadOnly],
+                                    'destroy': [IsAdminUser], }
     queryset = User.objects.order_by('-id')
 
     serializer_class = UserSerializer
@@ -40,7 +44,14 @@ class UserViewset(CustomViewBase):
     # 排序
     ordering_fields = ('updated', 'created',)
 
-    
+    def get_permissions(self):
+        try:
+            # return permission_classes depending on `action`
+            return [permission() for permission in self.permission_classes_by_action[self.action]]
+        except KeyError:
+            # action is not set return default permission_classes
+            return [permission() for permission in self.permission_classes]
+
 
 #     def get_object(self, queryset=None):
 #         obj = super().get_object(queryset=queryset)
