@@ -31,14 +31,29 @@ class EntryInfoSerializer(serializers.ModelSerializer):
         fields = ('id', 'user', 'title', 'entrys',
                   'is_delete', 'category')  # 指定序列化的字段
 
-   
-
     def get_entrys(self, obj):
         entrys = Entry.objects.filter(
             category=obj.category)
         entrys_serializer = DicEntrySerializer(entrys, many=True,
                                                context={'request': self.context['request']})
         return entrys_serializer.data
+
+
+class EntryInfoListSerializer(serializers.ModelSerializer):
+
+    user = serializers.HiddenField(
+        default=serializers.CurrentUserDefault())
+    is_delete = serializers.HiddenField(
+        default=False)
+    category = CategorySerializer(many=False, read_only=False)
+    title = TitleSerializer(many=False, read_only=False)
+    # title=TitleSerializer()
+
+    class Meta:
+        model = EntryInfo
+        # fields = '__all__'  # 序列化全部字段，实际中不建议使用，因为像password等字段是不应该返回给前端的
+        fields = ('id', 'user', 'title',
+                  'is_delete', 'category')  # 指定序列化的字段
 
 
 class UserEntrySerializer(serializers.ModelSerializer):

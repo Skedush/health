@@ -6,8 +6,8 @@ from .models import EntryInfo, UserEntry, UserEntryOfEntry
 from rest_framework.filters import SearchFilter, OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from utils.customViewBase import CustomViewBase, CustomRetrieveModelMixin
-from .serializers import EntryInfoSerializer, UserEntrySerializer, ResultUserEntrySerializer
-from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly,AllowAny
+from .serializers import EntryInfoSerializer, EntryInfoListSerializer, UserEntrySerializer, ResultUserEntrySerializer
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, AllowAny
 # from rest_framework_jwt.authentication import JSONWebTokenAuthentication, BaseJSONWebTokenAuthentication
 from utils.JWTAuthentication import JWTAuthentication
 from utils.response import BaseResponse
@@ -33,12 +33,12 @@ class EntryInfoViewset(CustomViewBase):
     # permission是权限验证 IsAuthenticated必须登录用户 IsOwnerOrReadOnly必须是当前登录的用户
     # 判断是否登陆
     # permission_classes = [IsAuthenticated]
-    
+
     permission_classes_by_action = {'create': [IsAuthenticated],
                                     'list': [IsAuthenticated],
                                     'update': [IsAuthenticated],
                                     'retrieve': [AllowAny],
-                                    'destroy': [IsAuthenticated],}
+                                    'destroy': [IsAuthenticated], }
     queryset = EntryInfo.objects.all()
     serializer_class = EntryInfoSerializer
     # drf 过滤&搜索&排序
@@ -51,11 +51,16 @@ class EntryInfoViewset(CustomViewBase):
     # 排序
     ordering_fields = ('id')
 
+    def get_serializer_class(self):
+        if self.action == "list":
+            return EntryInfoListSerializer
+        return EntryInfoSerializer
+
     def get_permissions(self):
         try:
-            # return permission_classes depending on `action` 
+            # return permission_classes depending on `action`
             return [permission() for permission in self.permission_classes_by_action[self.action]]
-        except KeyError: 
+        except KeyError:
             # action is not set return default permission_classes
             return [permission() for permission in self.permission_classes]
 
@@ -63,7 +68,7 @@ class EntryInfoViewset(CustomViewBase):
         # if self.request.user.is_superuser:
         #     return EntryInfo.objects.filter(is_delete=False)
         # else:
-        if self.action=='retrieve':
+        if self.action == 'retrieve':
             return EntryInfo.objects.filter()
         return EntryInfo.objects.filter(user=self.request.user, is_delete=False)
 
@@ -88,7 +93,7 @@ class UserEntryViewset(CustomViewBase):
                                     'list': [IsAuthenticated],
                                     'update': [IsAuthenticated],
                                     'retrieve': [IsAuthenticated],
-                                    'destroy': [IsAuthenticated],}
+                                    'destroy': [IsAuthenticated], }
     queryset = UserEntry.objects.all()
     serializer_class = UserEntrySerializer
     pagination_class = DrfPaginate
@@ -104,15 +109,14 @@ class UserEntryViewset(CustomViewBase):
 
     def get_permissions(self):
         try:
-            # return permission_classes depending on `action` 
+            # return permission_classes depending on `action`
             return [permission() for permission in self.permission_classes_by_action[self.action]]
-        except KeyError: 
+        except KeyError:
             # action is not set return default permission_classes
             return [permission() for permission in self.permission_classes]
 
     def get_queryset(self):
         return UserEntry.objects.filter(is_delete=False)
-    
 
 
 class ResultUserEntryViewset(CustomRetrieveModelMixin):
