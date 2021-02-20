@@ -100,7 +100,7 @@ class UserEntryViewset(CustomViewBase):
     # drf 过滤&搜索&排序
     filter_backends = (DjangoFilterBackend, SearchFilter,)
     # 搜索
-    search_fields = ('name', 'phone')
+    search_fields = ('name', 'phone','remark')
     # 过滤
     filter_fields = ('entry_info',)
     # filter_class = TitleFilter
