@@ -30,6 +30,7 @@ parts/
 sdist/
 var/
 wheels/
+static/
 *.egg-info/
 .installed.cfg
 *.egg
@@ -125,4 +126,4 @@ dmypy.json
 
 
 
-/.DS_Store
+.DS_Store
