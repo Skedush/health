@@ -27,4 +27,3 @@ class User(AbstractUser):
         verbose_name = '用户表'
         verbose_name_plural = verbose_name
         ordering = ['-id']
-

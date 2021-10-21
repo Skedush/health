@@ -8,12 +8,13 @@ def custom_exception_handler(exc, context):
     # Call REST framework's default exception handler first,
     # to get the standard error response.
     response = exception_handler(exc, context)
+    errorMessage = response.data.copy()
 
     # Now add the HTTP status code to the response.
     if response is not None:
         response.data.clear()
         response.data['data'] = {}
-        response.data['success']=False
+        response.data['success'] = False
 
         if response.status_code == 404:
             try:
@@ -41,4 +42,6 @@ def custom_exception_handler(exc, context):
         elif response.status_code == 405:
             response.data['message'] = MSG_METHOD_ERROR
             response.data['code'] = CODE_METHOD_ERROR
+        response.data['data'] = errorMessage
+
     return response

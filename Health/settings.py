@@ -10,9 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
+# 不用命令行启动项目部署想不与该配置文件无关
+
 import datetime
 import os
 import sys
+from django.utils.translation import gettext_lazy as _
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -48,8 +51,9 @@ INSTALLED_APPS = [
     'rest_framework_swagger',  # 使用swagger
     'drf_yasg',
 
-    # 'corsheaders',
-    
+    # 部署时注释
+    'corsheaders',
+
     'user',
     'title',
     'category',
@@ -61,6 +65,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
 
+    # 部署时注释
     'corsheaders.middleware.CorsMiddleware',
 
     'django.middleware.common.CommonMiddleware',
@@ -100,6 +105,7 @@ DATABASES = {
         'NAME': 'health',  # 连接数据库的名称
         'USER': 'root',  # 连接数据库的用户名
 
+        # 部署时换
         'PASSWORD': 'root',  # 连接数据库的密码
         # 'PASSWORD': 'RootAdmin?',  # 连接数据库的密码
 
@@ -131,7 +137,11 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGES = [
+    ('zh-hans', _('Chinese')),
+]
+
+LANGUAGE_CODE = 'zh-hans'
 
 TIME_ZONE = 'Asia/Shanghai'
 
@@ -178,6 +188,7 @@ JWT_AUTH = {
     'JWT_RESPONSE_PAYLOAD_HANDLER': 'utils.responseUserLogin.jwt_response_payload_handler',
     'JWT_SECRET_KEY': SECRET_KEY,  # jwt 生成 token 所使用的 key 。
 }
+
 # 下面是新增的配置
 STATICFILES_DIRS = [
     # 指定文件目录，BASE_DIR指的是项目目录，static是指存放静态文件的目录。
@@ -209,7 +220,7 @@ SWAGGER_SETTINGS = {
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITELIST = (
-    '*'
+    ['http://127.0.0.1:*']
 )
 CORS_ALLOW_METHODS = (
     'DELETE',
@@ -224,6 +235,5 @@ CORS_ALLOW_HEADERS = (
     '*'
 )
 
-
-
+# 部署时注释
 ALLOWED_HOSTS = "*"

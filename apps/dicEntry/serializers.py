@@ -49,7 +49,6 @@ class EntrySerializer(serializers.ModelSerializer):
                   'is_delete', 'category', 'sort', 'category_Id', 'entry_Ids')  # 指定序列化的字段
 
     def validate(self, attrs):
-        print(attrs)
         # del attrs['entry_Ids']
         return attrs
 

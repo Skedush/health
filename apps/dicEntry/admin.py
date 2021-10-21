@@ -21,7 +21,7 @@ class EntryListFilter(admin.SimpleListFilter):
         qs = model_admin.model.objects.all()
         ret = []
         # or might be able to use yeild here
-        for entry in qs.filter(category__in = [4,5,8]):
+        for entry in qs.exclude(category__in=[3, 6, 7]):
             ret.append((entry.title, entry.title))
         return ret
 

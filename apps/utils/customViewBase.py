@@ -29,7 +29,8 @@ class CustomViewBase(viewsets.ModelViewSet):
         """
         Set the `.action` attribute on the view, depending on the request method.
         """
-        request = super(viewsets.ViewSetMixin, self).initialize_request(request, *args, **kwargs)
+        request = super(viewsets.ViewSetMixin, self).initialize_request(
+            request, *args, **kwargs)
 
         method = request.method.lower()
         if method == 'options':
@@ -41,10 +42,7 @@ class CustomViewBase(viewsets.ModelViewSet):
             self.action = self.action_map.get(method)
         return request
 
-    
-
     def create(self, request, *args, **kwargs):
-        print(request.data)
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)

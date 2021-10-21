@@ -44,6 +44,11 @@ class UserViewset(CustomViewBase):
     # 排序
     ordering_fields = ('updated', 'created',)
 
+    def perform_create(self, serializer):
+        if self.request and self.request.data['title']:
+            title = self.request.data['title']
+        serializer.save(title=title)
+
     def get_permissions(self):
         try:
             # return permission_classes depending on `action`
