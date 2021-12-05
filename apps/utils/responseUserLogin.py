@@ -27,6 +27,7 @@ def jwt_response_payload_handler(token, user=None, request=None, role=None):
             'username': user.username,
             'email': user.email,
             'isStaff': user.is_staff,
+            'isSuperuser': user.is_superuser,
             'token': token,
             'gender': user.gender,
             'phone': user.phone,

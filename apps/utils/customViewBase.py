@@ -85,9 +85,10 @@ class CustomViewBase(viewsets.ModelViewSet):
 # 删除数据
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
+        serializer = self.get_serializer(instance)
         instance.is_delete = True
         self.perform_update(instance)
-        return BaseResponse(data=[], code=204, success=True, msg="删除成功", status=status.HTTP_204_NO_CONTENT)
+        return BaseResponse(data=serializer.data, code=200, success=True, msg="删除成功", status=status.HTTP_200_OK)
 
 
 class CustomRetrieveModelMixin(

@@ -39,7 +39,7 @@ class EntryAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {'fields': ('category', 'title', 'remark', 'sort')}),
     )
-
+    list_per_page = 500
     search_fields = ['title']
     list_filter = ['category', EntryListFilter]
     inlines = (EntrysInlineAdmin,)
