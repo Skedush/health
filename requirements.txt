@@ -1,7 +1,12 @@
-djangorestframework_jwt==1.11.0
 drf_yasg==1.17.0
 PyMySQL==0.9.3
 six==1.14.0
-django_filter==2.0.0
-Django==3.0.8
 PyJWT==1.7.1
+Django==3.0.8
+django-cors-headers==3.4.0
+django-filter==2.0.0
+django-filters==0.2.1
+django-jsonfield==1.4.0
+django-rest-swagger==2.1.2
+djangorestframework==3.11.0
+djangorestframework-jwt==1.11.0

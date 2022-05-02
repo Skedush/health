@@ -1,8 +1,10 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import User
-from django.utils.translation import gettext, gettext_lazy
+from django.utils.translation import gettext_lazy
 
+admin.AdminSite.site_header = '填表管理系统'
+admin.AdminSite.site_title = '填表管理系统'
 
 class UserProfileAdmin(UserAdmin):
     fieldsets = (

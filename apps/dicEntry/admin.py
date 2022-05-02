@@ -1,9 +1,7 @@
 from django.contrib import admin
 from .models import Entry, Entryship
-from django.contrib.admin import widgets
 
 # 多对多关联表中有多个外键
-
 
 class EntrysInlineAdmin(admin.TabularInline):
     model = Entryship

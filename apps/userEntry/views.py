@@ -135,7 +135,7 @@ class ResultUserEntryViewset(CustomRetrieveModelMixin):
     # permission是权限验证 IsAuthenticated必须登录用户 IsOwnerOrReadOnly必须是当前登录的用户
     # 判断是否登陆
     permission_classes = [IsAuthenticated]
-    queryset = UserEntry.objects.order_by('-id')
+    queryset = UserEntry.objects.prefetch_related('entryship__entrys__category').all().order_by('-id')
     serializer_class = ResultUserEntrySerializer
     # drf 过滤&搜索&排序
     # 排序

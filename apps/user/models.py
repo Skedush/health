@@ -21,6 +21,8 @@ class User(AbstractUser):
     is_delete = models.BooleanField(default=False, verbose_name='是否删除')
     is_title = models.BooleanField(default=False, verbose_name='修改标题')
     is_vip = models.BooleanField(default=False, verbose_name='会员')
+    is_active = models.BooleanField(default=False, verbose_name='是否激活',help_text="指明用户是否被认为是活跃的。以反选代表未激活。")
+    is_staff = models.BooleanField(default=False, verbose_name='企业用户',help_text="指明用户是否被认为是企业用户。")
 
     class Meta:
         db_table = 'h_user'

@@ -69,7 +69,7 @@ class UserEntrySerializer(serializers.ModelSerializer):
     entry_Ids = serializers.SlugRelatedField(
         many=True, write_only=True, slug_field="id", queryset=Entry.objects.all())
     created = serializers.DateTimeField(
-        format="%Y-%m-%d", required=False, read_only=True)
+        format="%Y-%m-%d %H:%M", required=False, read_only=True)
     # entrys = serializers.PrimaryKeyRelatedField(
     #     many=True, queryset=Entry.objects.all())
 
@@ -79,7 +79,7 @@ class UserEntrySerializer(serializers.ModelSerializer):
         # fields = ('id', 'name', 'gender', 'height', 'weight', 'age', 'address', 'waistline', 'systolic_pressure', 'diastolic_pressure', 'blood_sugar', 'remark', 'phone', 'entryship',
         #           'is_delete',  'entry_Ids', 'entry_info')  # 指定序列化的字段
         fields = ('id', 'name', 'gender', 'height', 'weight', 'age', 'address', 'waistline', 'systolic_pressure', 'diastolic_pressure', 'blood_sugar', 'remark', 'phone', 'created',
-                  'is_delete',  'entry_Ids', 'entry_info', 'suggestion')  # 指定序列化的字段
+                  'is_delete',  'entry_Ids', 'entry_info', 'suggestion', 'entryship')  # 指定序列化的字段
 
     def create(self, validated_data):
         entry_Ids = validated_data.pop('entry_Ids')
