@@ -238,4 +238,4 @@ CORS_ALLOW_HEADERS = (
 )
 
 # 部署时注释
-ALLOWED_HOSTS = "*"
+# ALLOWED_HOSTS = "*"
