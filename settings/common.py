@@ -31,7 +31,6 @@ sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 SECRET_KEY = 'kz^6p_(@0(le-40zfh^7!99!l7w3qf%-hkez@)w5hr+pivoj!_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 AUTH_USER_MODEL = 'user.User'
 
