@@ -67,11 +67,11 @@ class UserEntry(models.Model):
     blood_sugar = models.CharField(null=True, max_length=20,
                                    blank=True, verbose_name='血糖mmol/L')
 
-    remark = models.CharField(max_length=255, null=True,
+    remark=models.TextField(max_length=10240, null=True,
                               blank=True, verbose_name='备注')
 
-    suggestion = models.CharField(max_length=1024, null=True,
-                                  blank=True, verbose_name='备注')
+    suggestion = models.TextField(max_length=10240, null=True,
+                                  blank=True, verbose_name='建议')
 
     phone = models.CharField(max_length=11, null=True,
                              blank=True, verbose_name='用户手机号')
