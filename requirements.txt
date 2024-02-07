@@ -2,7 +2,7 @@ drf_yasg==1.17.0
 PyMySQL==0.9.3
 six==1.14.0
 PyJWT==1.7.1
-Django==3.0.8
+Django==3.2.24
 django-cors-headers==3.4.0
 django-filter==2.0.0
 django-filters==0.2.1
