@@ -1,0 +1,23 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+drf-yasg = "==1.17.0"
+pymysql = "==0.9.3"
+six = "==1.14.0"
+pyjwt = "==1.7.1"
+django = "==3.0.8"
+django-cors-headers = "==3.4.0"
+django-filter = "==2.0.0"
+django-jsonfield = "==1.4.0"
+django-rest-swagger = "==2.1.2"
+djangorestframework = "==3.11.0"
+djangorestframework-jwt = "==1.11.0"
+django-simpleui = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"
